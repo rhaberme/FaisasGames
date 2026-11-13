@@ -41,10 +41,39 @@ st.markdown(
     .frage { font-size: 1.6rem; font-weight: 800; line-height: 1.3; margin: 0.4rem 0 1rem 0; }
     .gurt { display: inline-block; padding: 0.35rem 1rem; border-radius: 999px; font-weight: 800;
             border: 2px solid #ffffff55; }
+    /* Bundesland unter der Maus hervorheben */
+    .js-plotly-plot .choroplethlayer path { transition: filter 0.12s; }
+    .js-plotly-plot .choroplethlayer path.hervor { filter: brightness(1.4) saturate(1.2);
+            stroke: #ffffff !important; stroke-width: 3px !important; stroke-opacity: 1 !important; }
+    .js-plotly-plot.ueber-land .geo .bg rect { cursor: pointer; }
     .thema { opacity: 0.75; font-size: 0.95rem; letter-spacing: 0.04em; text-transform: uppercase; }
     </style>
     """,
     unsafe_allow_html=True,
+)
+
+# Plotly kennt kein Hover-Styling für Flächen: Das Skript markiert das Bundesland unter der Maus per CSS-Klasse.
+st.html(
+    """
+    <script>
+    if (!window.faisaHover) {
+        window.faisaHover = true;
+        const markiere = (ereignis) => requestAnimationFrame(() => {
+            const karte = ereignis.target.closest ? ereignis.target.closest(".js-plotly-plot") : null;
+            const treffer = karte && karte._hoverdata && karte._hoverdata[0];
+            const pfade = karte ? karte.querySelectorAll(".choroplethlayer path") : [];
+            const ziel = treffer ? pfade[treffer.pointNumber] : null;
+            document.querySelectorAll(".choroplethlayer path.hervor").forEach((p) => p !== ziel && p.classList.remove("hervor"));
+            document.querySelectorAll(".js-plotly-plot.ueber-land").forEach((k) => k !== karte && k.classList.remove("ueber-land"));
+            if (karte) karte.classList.toggle("ueber-land", Boolean(ziel));
+            if (ziel) ziel.classList.add("hervor");
+        });
+        document.addEventListener("mousemove", markiere);
+        document.addEventListener("mouseleave", markiere);
+    }
+    </script>
+    """,
+    unsafe_allow_javascript=True,
 )
 
 s = st.session_state
