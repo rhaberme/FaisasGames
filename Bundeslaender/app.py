@@ -6,13 +6,11 @@ from pathlib import Path
 
 import plotly.graph_objects as go
 import streamlit as st
-from PIL import Image, ImageOps
 
 from daten import DEUTSCHLAND, DEUTSCHLAND_FAKTEN, LAENDER, WISSEN
 
 ORDNER = Path(__file__).parent
 FORTSCHRITT = ORDNER / "fortschritt.json"
-KARTEN_FOTO = ORDNER / "Bilder" / "IMG20261113214224.jpg"
 GEOJSON = ORDNER / "geo" / "bundeslaender.geo.json"
 
 GUERTEL = [  # (ab Punkten, Name, Farbe)
@@ -162,12 +160,6 @@ def vereinfache(text):
     for a, b in (("ä", "ae"), ("ö", "oe"), ("ü", "ue"), ("ß", "ss")):
         text = text.replace(a, b)
     return "".join(z for z in text if z.isalnum())
-
-
-@st.cache_data
-def karte():
-    bild = ImageOps.exif_transpose(Image.open(KARTEN_FOTO))
-    return bild.crop((330, 740, 1335, 1960))
 
 
 @st.cache_data
@@ -379,7 +371,8 @@ def seite_steckbriefe():
         verdeckt = st.toggle("Hauptstädte verdecken (zum Selbsttest)")
         st.table([{"Nr.": d["nr"], "Bundesland": land, "Landeshauptstadt": "❓" if verdeckt else d["hauptstadt"]}
                   for land, d in sorted(LAENDER.items(), key=lambda x: x[1]["nr"])])
-        st.image(karte(), width=420, caption="Die Karte aus deinem Heft")
+        farben = {land: BUNT[i % len(BUNT)] for i, land in enumerate(LAENDER)}
+        st.plotly_chart(deutschlandkarte(farben, not verdeckt), key="tabelle_karte", config=KARTEN_CONFIG)
     with tab_de:
         st.subheader("Steckbrief Deutschland")
         st.table([{"Was": k, "Antwort": v} for k, v in DEUTSCHLAND.items()])
