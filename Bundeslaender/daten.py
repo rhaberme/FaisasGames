@@ -327,3 +327,34 @@ WISSEN = [
     ("Thüringen", "Welches Denkmal steht bei Bad Frankenhausen?", "Kyffhäuserdenkmal", ["Roter Turm", "Lange Anna", "Brandenburger Tor"]),
     ("Thüringen", "Welches Bundesland liegt direkt südlich von Thüringen?", "Bayern", ["Brandenburg", "Niedersachsen", "Saarland"]),
 ]
+
+# Gegner in der Arena: Bundesland -> (Emoji, Name, Kampfansage)
+GEGNER = {
+    "Bayern": ("🥨", "Brezn-Bruno", "Mia san mia – an mir kommst du nicht vorbei!"),
+    "Baden-Württemberg": ("🐒", "Affenberg-Anni", "Ich hangel mich schneller durch den Schwarzwald als du!"),
+    "Saarland": ("⛏️", "Bergbau-Bodo", "Klein, aber zäh wie Stahl!"),
+    "Rheinland-Pfalz": ("🍇", "Trauben-Trude", "Dich pflücke ich wie eine reife Traube!"),
+    "Hessen": ("🏦", "Banken-Ben", "Bei mir zahlst du mit Wissen!"),
+    "Thüringen": ("🌲", "Rennsteig-Rosi", "Im grünen Herzen schlägt mein Punch!"),
+    "Sachsen": ("🏰", "Festungs-Fritz", "Meine Mauern sind 42 Meter hoch!"),
+    "Brandenburg": ("🦦", "Spreewald-Otto", "Ich tauche ab und du gehst baden!"),
+    "Berlin": ("🐻", "Bären-Bella", "In der Hauptstadt bin ich der Boss!"),
+    "Sachsen-Anhalt": ("🧙", "Brocken-Hilda", "Vom Brocken hexe ich dich aus dem Ring!"),
+    "Niedersachsen": ("🐀", "Ratten-Rudi aus Hameln", "Bei Ebbe erwische ich dich im Watt!"),
+    "Nordrhein-Westfalen": ("⛪", "Dom-Dieter", "17,9 Millionen Fans stehen hinter mir!"),
+    "Bremen": ("🐓", "Gockel Gustav", "Das kleinste Land hat den lautesten Hahn!"),
+    "Hamburg": ("🐟", "Fischkopp Fiete", "Moin! Hier gibt's Aalsuppe statt Buldak!"),
+    "Schleswig-Holstein": ("🦭", "Robben-Rieke", "Ganz oben im Norden weht ein rauer Wind!"),
+    "Mecklenburg-Vorpommern": ("🦅", "Seeadler Selma", "Über 2000 Seen und ich sehe alles!"),
+}
+
+# Lage der Landeshauptstädte (Längengrad, Breitengrad) für das Abenteuer.
+# Mainz und Wiesbaden sind leicht auseinandergerückt, damit sich die Gegner nicht überlappen.
+ORTE = {
+    "Bayern": (11.58, 48.14), "Baden-Württemberg": (9.18, 48.78), "Saarland": (6.99, 49.27),
+    "Rheinland-Pfalz": (8.12, 49.90), "Hessen": (8.36, 50.16), "Thüringen": (11.03, 50.98),
+    "Sachsen": (13.74, 51.05), "Brandenburg": (13.02, 52.38), "Berlin": (13.42, 52.52),
+    "Sachsen-Anhalt": (11.63, 52.13), "Niedersachsen": (9.73, 52.37), "Nordrhein-Westfalen": (6.85, 51.23),
+    "Bremen": (8.80, 53.08), "Hamburg": (9.99, 53.55), "Schleswig-Holstein": (10.10, 54.30),
+    "Mecklenburg-Vorpommern": (11.41, 53.63),
+}
